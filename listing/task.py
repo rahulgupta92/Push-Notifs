@@ -17,20 +17,21 @@ import celery
 def create_notification_subscribe(product, current_user):
     actingUser = current_user.user.username
     for each in product.subscribers.all():
-        n=Notification.objects.create(title="subscribed by %s" % actingUser,message="{0} has also shortlisted this listing {1}".format(actingUser,product.title),acting_user=actingUser,time=timezone.now())
-        each.Notifications.add(n)
-        redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
-        for session in each.user.session_set.all():
-            redis_client.publish(
-                'notifications.%s' % session.session_key,
-                json.dumps(
-                    dict(
-                        # time = n.time,
-                        message=n.message,
-                        recipient=each.user.username
+        if each.user.username!=actingUser:
+            n=Notification.objects.create(title="subscribed by %s" % actingUser,message="{0} has also shortlisted this listing {1}".format(actingUser,product.title),acting_user=actingUser,time=timezone.now())
+            each.Notifications.add(n)
+            redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+            for session in each.user.session_set.all():
+                redis_client.publish(
+                    'notifications.%s' % session.session_key,
+                    json.dumps(
+                        dict(
+                            # time = n.time,
+                            message=n.message,
+                            recipient=each.user.username
+                            )
                         )
                     )
-                )
 @celery.task
 def create_notification_place(product, current_user):
     actingUser = current_user.user.username
@@ -50,35 +51,37 @@ def create_notification_place(product, current_user):
             )
 
     for each in product.placed_users.all():
-        n=Notification.objects.create(title="placed by %s" % actingUser,message="{1} has recieved a new offer by {0}".format(actingUser,product.title),acting_user=actingUser,time=timezone.now())
-        each.Notifications.add(n)
-        redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
-        for session in each.user.session_set.all():
-            redis_client.publish(
-                'notifications.%s' % session.session_key,
-                json.dumps(
-                    dict(
-                        # time = n.time,
-                        message=n.message,
-                        recipient=each.user.username
+        if each.user.username!=actingUser:
+            n=Notification.objects.create(title="placed by %s" % actingUser,message="{1} has recieved a new offer by {0}".format(actingUser,product.title),acting_user=actingUser,time=timezone.now())
+            each.Notifications.add(n)
+            redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+            for session in each.user.session_set.all():
+                redis_client.publish(
+                    'notifications.%s' % session.session_key,
+                    json.dumps(
+                        dict(
+                            # time = n.time,
+                            message=n.message,
+                            recipient=each.user.username
+                            )
                         )
                     )
-                )
 
     for each in product.subscribers.all():
-        n=Notification.objects.create(title="placed by %s" % actingUser,message="{1} has recieved a new offer by {0}".format(actingUser,product.title),acting_user=actingUser,time=timezone.now())
-        each.Notifications.add(n)
-        redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
-        for session in each.user.session_set.all():
-            redis_client.publish(
-                'notifications.%s' % session.session_key,
-                json.dumps(
-                    dict(
-                        # time = n.time,
-                        message=n.message,
-                        recipient=each.user.username
+        if each.user.username!=actingUser:
+            n=Notification.objects.create(title="placed by %s" % actingUser,message="{1} has recieved a new offer by {0}".format(actingUser,product.title),acting_user=actingUser,time=timezone.now())
+            each.Notifications.add(n)
+            redis_client = redis.StrictRedis(host='localhost', port=6379, db=0)
+            for session in each.user.session_set.all():
+                redis_client.publish(
+                    'notifications.%s' % session.session_key,
+                    json.dumps(
+                        dict(
+                            # time = n.time,
+                            message=n.message,
+                            recipient=each.user.username
+                            )
                         )
                     )
-                )
 
 

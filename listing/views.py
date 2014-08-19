@@ -54,8 +54,8 @@ def shortlist_item(request,product_id):
     context = RequestContext(request)
     current_user = request.user.userprofile
     product=Product.objects.get(id=product_id)
-    task.create_notification_subscribe.delay(product,current_user)
     product.subscribers.add(current_user)
+    task.create_notification_subscribe.delay(product,current_user)
     return HttpResponseRedirect('/listing/product/'+str(product_id))
 
 @login_required
@@ -63,9 +63,8 @@ def place_order(request,product_id):
     context = RequestContext(request)
     current_user = request.user.userprofile
     product=Product.objects.get(id=product_id)
-    task.create_notification_place.delay(product,current_user)
     product.placed_users.add(current_user)
-
+    task.create_notification_place.delay(product,current_user)
     return HttpResponseRedirect('/listing/product/'+str(product_id))
 
 

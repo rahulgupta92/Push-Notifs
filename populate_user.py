@@ -11,7 +11,7 @@ from listing.models import Product, Notification, UserProfile
 from django.contrib.auth.models import User
 
 def add_user(username):
-	email = '{0}@{0}.{0}'.format(username)
+	email = '{0}@ht.com'.format(username)
 	u=User.objects.create_user(username=username,email=email)
 	u.set_password('1234')
 	u.save()
