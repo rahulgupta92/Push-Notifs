@@ -3,6 +3,7 @@
 <html>
     <head>
         {% load static %}
+        {% load count_tags %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!-- Bootstrap -->
         <link href="{% static 'css/bootstrap-fluid-adj.css' %}" rel="stylesheet">
@@ -11,7 +12,7 @@
 
         <title>{% block title %}{% endblock %}</title>
         <script src="{% static 'js/jquery-2.1.1.js' %}"></script>
-        <script src="http://localhost:8002/socket.io/socket.io.js"></script> 
+        <script src="http://{%ip_address%}:8002/socket.io/socket.io.js"></script> 
         <!-- <script src="http://180.215.174.252:8002/socket.io/socket.io.js"></script>  -->
 
 
@@ -37,7 +38,7 @@
     <script>
 
         $(document).ready(function() {
-            var socket = io.connect("localhost", {port: 8002});
+            var socket = io.connect("{%ip_address%}", {port: 8002});
             // var socket = io.connect("180.215.174.252", {port: 8002});
             socket.on('message', function(message) {
                 $( "#notifs" ).attr( "data-badge", function(i, val ) {
@@ -97,7 +98,7 @@
 
                             {% if user.is_authenticated %}
                               <span class="brand">hello {{ user.username }}!, </span><a class="brand" href="/listing/logout/">Logout</a>
-                            {% load count_tags %}
+                            
                             <button id="notifs" class="badge1" data-badge="{% notif_count %}" onclick="dis_notification()">Notifications</button>
                             {% else %}
                                 <a class="brand" href="/listing/register/">Register Here</a>

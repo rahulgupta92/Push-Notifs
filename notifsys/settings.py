@@ -119,3 +119,4 @@ import djcelery
 djcelery.setup_loader() 
 BROKER_URL = 'amqp://myuser:1234@localhost:5672//' 
 CELERY_IMPORTS = ('listing.task',)
+

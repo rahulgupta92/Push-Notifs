@@ -5,15 +5,20 @@ from django import forms
 from listing.models import Product
 from django.core import validators
 
+
+
 class ProductForm(forms.ModelForm):
     title=forms.CharField(max_length=150, help_text="Please enter the title of the item")
     description=forms.CharField(max_length=10000, help_text="Please add a description")
     price=forms.FloatField(help_text="Please enter the price of item")
     
+    
     class Meta:
         model=Product
         fields=('title','price','description','image1','image2','image3')
 
+    
+          
 
 
 class UserForm(forms.ModelForm):

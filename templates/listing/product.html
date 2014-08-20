@@ -53,19 +53,32 @@
                             {% if has_shortlisted %}
                                 <h4>You have shortlisted this product.</h4>
                             {% else %}
-                                <a href="/listing/product/{{ product.id }}/shortlist">Shortlist </a><br>
+                                <button id="short" onclick="short_func()">Shortlist </button><br>
                             {% endif %}
 
                             {% if has_placed %}
                                 <h4>You have placed order for this product.</h4>
                             {% else %}
-                                <a href="/listing/product/{{ product.id }}/place_order">Place Order </a>
+                                <button id="place" onclick="place_func()" >Place Order </button>
                             {% endif %}
 
                         {% endif %}
                     {% else %}
-                         <a href="/listing/login">Shortlist </a><br>
-                         <a href="/listing/login">Place Order </a>
+                         <a href="/listing/login">Log in to Shortlist </a><br>
+                         <a href="/listing/login">Log in to Place Order </a>
                     {% endif %}
         {% endif %} 
+        <script>
+            function short_func()
+            {
+                document.getElementById("short").disabled=true;
+                location.href="/listing/product/{{ product.id }}/shortlist";
+            }
+
+            function place_func()
+            {
+                document.getElementById("place").disabled=true;
+                location.href="/listing/product/{{ product.id }}/place_order";
+            }
+        </script>
 {% endblock %}
