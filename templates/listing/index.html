@@ -14,7 +14,7 @@
         {% for product in products %}
         <!-- <div class="row-fluid"> -->
             <div class="span6">
-                <a href="/listing/product/{{ product.url }}"><h4>{{ product.title }}</h4> </a>
+                <a href="/product/{{ product.url }}"><h4>{{ product.title }}</h4> </a>
                 <img src="media/{{product.image1}}" height="200" width="200"/> <br> 
                 Price : {{ product.price }}<br>
                 Date added: {{ product.time }}<br>Owner: {{ product.owner.user.username}}

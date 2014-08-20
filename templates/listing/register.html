@@ -10,10 +10,10 @@
     <div class="container">
         {% if registered %}
         <p>Thank you for registering.</p>
-        <a href="/listing/login">Login here.</a>
+        <a href="/login">Login here.</a>
 
         {% else %}
-        <form class="form-signin span8" id="user_form" method="post" action="/listing/register/"
+        <form class="form-signin span8" id="user_form" method="post" action="/register/"
               enctype="multipart/form-data">
             {% csrf_token %}
             <h2 class="form-signin-heading">Sign up Here</h2>

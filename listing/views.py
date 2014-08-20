@@ -56,7 +56,7 @@ def shortlist_item(request,product_id):
     product=Product.objects.get(id=product_id)
     product.subscribers.add(current_user)
     task.create_notification_subscribe.delay(product,current_user)
-    return HttpResponseRedirect('/listing/product/'+str(product_id))
+    return HttpResponseRedirect('/product/'+str(product_id))
 
 @login_required
 def place_order(request,product_id):
@@ -65,7 +65,7 @@ def place_order(request,product_id):
     product=Product.objects.get(id=product_id)
     product.placed_users.add(current_user)
     task.create_notification_place.delay(product,current_user)
-    return HttpResponseRedirect('/listing/product/'+str(product_id))
+    return HttpResponseRedirect('/product/'+str(product_id))
 
 
 
@@ -107,7 +107,7 @@ def user_login(request):
         if user:
             if user.is_active:
                 login(request,user)
-                return HttpResponseRedirect('/listing/')
+                return HttpResponseRedirect('/')
             else:
                 return HttpResponse("Account is disabled")
         else:
@@ -120,7 +120,7 @@ def user_login(request):
 @login_required
 def user_logout(request):
     logout(request)
-    return HttpResponseRedirect('/listing/')
+    return HttpResponseRedirect('/')
 
 @login_required
 def add_item(request):

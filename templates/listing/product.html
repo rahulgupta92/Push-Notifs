@@ -43,7 +43,7 @@
                         {% if is_owner %}
                             You are the owner. Hence, you can't shortlist or place order for this product.<br>
                             <br>
-                            <a href="/listing/{{ product.id }}/mod_item">Edit Product Details</a>
+                            <a href="/{{ product.id }}/mod_item">Edit Product Details</a>
                         {% else %}
                             
                             {% if has_shortlisted %}
@@ -60,8 +60,8 @@
 
                         {% endif %}
                     {% else %}
-                         <a href="/listing/login">Login to Shortlist </a><br>
-                         <a href="/listing/login">Login to Place Order </a>
+                         <a href="/login">Login to Shortlist </a><br>
+                         <a href="/login">Login to Place Order </a>
                     {% endif %}
                 </div>
         {% endif %} 
@@ -69,13 +69,13 @@
             function short_func()
             {
                 document.getElementById("short").disabled=true;
-                location.href="/listing/product/{{ product.id }}/shortlist";
+                location.href="/product/{{ product.id }}/shortlist";
             }
 
             function place_func()
             {
                 document.getElementById("place").disabled=true;
-                location.href="/listing/product/{{ product.id }}/place_order";
+                location.href="/product/{{ product.id }}/place_order";
             }
         </script>
 

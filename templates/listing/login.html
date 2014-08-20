@@ -6,7 +6,7 @@
 <div class="hero-unit">
 
     <div class="container">
-    <form class="form-signin span4" id="login_form" method="post" action="/listing/login/">
+    <form class="form-signin span4" id="login_form" method="post" action="/login/">
         <h2 class="form-signin-heading">Please sign in</h2>
         {% csrf_token %}
 
@@ -21,7 +21,7 @@
         Password: <input type="password" class="input-block-level" placeholder="Password" name="password" value="" size="50" />
         <br />
         <button class="btn btn-primary" type="submit">Sign in</button>
-        <a href="/listing/register/">Register Here</a>
+        <a href="/register/">Register Here</a>
     </form>
 
     </div>
