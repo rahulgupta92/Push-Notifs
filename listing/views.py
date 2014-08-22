@@ -13,15 +13,26 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 import task
+
 
 def index(request):
     context=RequestContext(request)
     product_list=Product.objects.order_by('-time')
+    paginator=Paginator(product_list,5)
 
-    context_dict={'products':product_list}
-    for product in product_list:
-        product.url = product.id
+    page=request.GET.get('page')
+    try:
+        products=paginator.page(page)
+    except PageNotAnInteger:
+        products=paginator.page(1)
+    except EmptyPage:
+        products=paginator.page(paginator.num_pages)
+        
+            
+    context_dict={"products":products}
+   
     return render_to_response('listing/index.html',context_dict,context)
 
 def products_page(request,product_name_url):

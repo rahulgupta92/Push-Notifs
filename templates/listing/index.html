@@ -14,15 +14,30 @@
         {% for product in products %}
         <!-- <div class="row-fluid"> -->
             <div class="span6">
-                <a href="/product/{{ product.url }}"><h4>{{ product.title }}</h4> </a>
+                <a href="/product/{{ product.id}}"><h4>{{ product.title }}</h4> </a>
                 <img src="media/{{product.image1}}" height="200" width="200"/> <br> 
                 Price : {{ product.price }}<br>
                 Date added: {{ product.time }}<br>Owner: {{ product.owner.user.username}}
             </div>
         <!-- </div> -->
-         
-        {% endfor %}
-   
+         {% endfor %}
+            
+            <div class="span6">
+                <br>
+                <span class="step-links">
+                    {% if products.has_previous %}
+                    <a href="?page={{ products.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ products.number }} of {{ products.paginator.num_pages }}.
+                    </span>
+
+                    {% if products.has_next %}
+                        <a href="?page={{ products.next_page_number }}">next</a>
+                    {% endif %}
+                    </span>
+            </div>
     {% else %}
     <br>
         <strong>There are no products present.</strong>
