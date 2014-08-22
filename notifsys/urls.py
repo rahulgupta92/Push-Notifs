@@ -6,10 +6,7 @@ from listing import views
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'notifsys.views.home', name='home'),
-    # url(r'^blog/', include('blog.urls')),
-
+    
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.index, name='index'),
     url(r'^product/(?P<product_name_url>\w+)/$', views.products_page, name='products_page'),

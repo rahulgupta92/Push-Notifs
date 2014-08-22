@@ -17,7 +17,6 @@ TEMPLATE_PATH = os.path.join(BASE_DIR,'templates')
 
 STATIC_PATH=os.path.join(BASE_DIR,'static')
 
-DATABASE_PATH=os.path.join(BASE_DIR,'listing.db')
 
 LOGIN_URL='/listing/login/'
 MEDIA_URL="/media/"
