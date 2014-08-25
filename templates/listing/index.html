@@ -11,7 +11,7 @@
 
     {% if products %}
         
-        {% for product in products %}
+        {% for product in products.object_list %}
         <!-- <div class="row-fluid"> -->
             <div class="span6">
                 <a href="/product/{{ product.id}}"><h4>{{ product.title }}</h4> </a>
@@ -21,8 +21,16 @@
             </div>
         <!-- </div> -->
          {% endfor %}
-            
-            <div class="span6">
+        
+
+         <div class= "span6" id="pagination">
+            {{products.render}}
+         </div>   
+
+        
+        <!-- Uncomment the below block to use standard Django Pagination-->    
+            <!-- <div class="span6">
+                <br>
                 <br>
                 <span class="step-links">
                     {% if products.has_previous %}
@@ -37,7 +45,7 @@
                         <a href="?page={{ products.next_page_number }}">next</a>
                     {% endif %}
                     </span>
-            </div>
+            </div> -->
     {% else %}
     <br>
         <strong>There are no products present.</strong>

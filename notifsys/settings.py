@@ -56,6 +56,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'listing',
     'djcelery',
+    'pure_pagination',
    
 )
 
@@ -119,3 +120,7 @@ djcelery.setup_loader()
 BROKER_URL = 'amqp://myuser:1234@localhost:5672//' 
 CELERY_IMPORTS = ('listing.task',)
 
+PAGINATION_SETTINGS={
+    'PAGE_RANGE_DISPLAYED':2,
+    'MARGIN_PAGES_DISPLAYED':2,
+}

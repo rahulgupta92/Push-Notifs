@@ -13,26 +13,44 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+#from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from pure_pagination import Paginator,EmptyPage,PageNotAnInteger
 import task
 
 
+
 def index(request):
+
+    #Uncomment the below block to use standard Django Pagination
+    # context=RequestContext(request)
+    # product_list=Product.objects.order_by('-time')
+    
+    # paginator=Paginator(product_list,5)
+
+    # page=request.GET.get('page')
+    # try:
+    #     products=paginator.page(page)
+    # except PageNotAnInteger:
+    #     products=paginator.page(1)
+    # except EmptyPage:
+    #     products=paginator.page(paginator.num_pages)
+    # context_dict={"products":products}
+
     context=RequestContext(request)
     product_list=Product.objects.order_by('-time')
-    paginator=Paginator(product_list,5)
-
-    page=request.GET.get('page')
     try:
-        products=paginator.page(page)
+        page = request.GET.get('page', 1)
     except PageNotAnInteger:
-        products=paginator.page(1)
-    except EmptyPage:
-        products=paginator.page(paginator.num_pages)
-        
-            
+        page = 1
+
+    
+
+    # Provide Paginator with the request object for complete querystring generation
+    p = Paginator(product_list, 5,request=request)
+    products = p.page(page)
     context_dict={"products":products}
-   
+
+
     return render_to_response('listing/index.html',context_dict,context)
 
 def products_page(request,product_name_url):
