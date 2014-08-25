@@ -11,12 +11,17 @@
 
             <div class="row-fluid">
                 <div class="span4">
-                    
-                    <img src="media/{{product.image1}}" height="250" width="250"/><hr> 
-                                        
-                    <img src="media/{{product.image2}}" height="250" width="250"/> <hr>
-                    
-                    <img src="media/{{product.image3}}" height="250" width="250"/> <hr>
+                    {% if product.image1 %}
+                        <img src="media/{{product.image1}}" height="250" width="250"/><hr> 
+                    {% endif %}
+
+                    {% if product.image2 %}                    
+                        <img src="media/{{product.image2}}" height="250" width="250"/> <hr>
+                    {% endif %}
+
+                    {% if product.image3 %}
+                        <img src="media/{{product.image3}}" height="250" width="250"/> <hr>
+                    {% endif %}
                   
                 </div>
                         
